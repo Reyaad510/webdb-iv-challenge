@@ -6,7 +6,7 @@ const db = require('../data/helper.js')
 
 
 
-// Get recipes
+// Get Recipes
 // /api/recipes
 router.get('/', async(req, res) => {
     try {
@@ -17,6 +17,20 @@ router.get('/', async(req, res) => {
     }
 })
 
+// Add Recipe
+router.post('/', async(req, res) => {
+    const recipe = req.body;
+    try {
+      if(recipe.name && recipe.dish_id) {
+      const newRecipe = await db.addRecipe(recipe);
+      res.status(201).json(newRecipe);
+      } else {
+          res.status(400).json({ message: 'Please provide name and dish_id for your recipe!' })
+      }
+    } catch(error) {
+        res.status(500).json({message: 'We ran into an error creating the recipe. :('})
+    }
+})
 
 
 module.exports = router;
