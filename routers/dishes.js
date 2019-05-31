@@ -1,20 +1,16 @@
-const knex = require('knex');
+
 const router = require('express').Router();
+const db = require('../data/helper.js')
 
 
 
-const knexConfig = {
-    client: 'sqlite3',
-    connection: {
-        filename: './data/recipe.db3'
-    },
-    useNullAsDefault: true,
-}
-
-const db = knex(knexConfig);
-
+// Get Dishes
+// /api/dishes
 router.get('/', async(req, res) => {
-    res.status(200).json({message: 'Test Dish Router'})
+    const dishes = await db.getDishes();
+    res.status(200).json(dishes);
 })
+
+
 
 module.exports = router;
