@@ -19,7 +19,7 @@ router.get('/', async(req, res) => {
 
 // Add Recipe
 router.post('/', async(req, res) => {
-    const recipe = req.body;
+  const recipe = req.body;
     try {
       if(recipe.name && recipe.dish_id) {
       const newRecipe = await db.addRecipe(recipe);
